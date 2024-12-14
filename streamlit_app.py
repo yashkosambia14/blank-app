@@ -5,7 +5,6 @@ import joblib
 
 
 
-model = joblib.load("subdirectory/logistic_model.pkl")
 
 
 # Load the trained model
