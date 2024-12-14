@@ -1,6 +1,15 @@
 import streamlit as st
 import numpy as np
 
+import joblib
+
+# Load the trained model
+try:
+    model = joblib.load("logistic_model.pkl")
+except FileNotFoundError:
+    st.error("Model file not found. Please ensure 'logistic_model.pkl' is in the app directory.")
+    st.stop()  # Stop execution if the model is missing
+
 # Function to display data definitions
 def display_data_definitions():
     st.write("### Data Definitions")
