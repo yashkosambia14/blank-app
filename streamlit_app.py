@@ -6,9 +6,7 @@ import joblib
 
 
 model = joblib.load("subdirectory/logistic_model.pkl")
-import streamlit as st
-import joblib
-import numpy as np
+
 
 # Load the trained model
 try:
