@@ -3,12 +3,7 @@ import numpy as np
 
 import joblib
 
-# Load the trained model
-try:
-    model = joblib.load("logistic_model.pkl")
-except FileNotFoundError:
-    st.error("Model file not found. Please ensure 'logistic_model.pkl' is in the app directory.")
-    st.stop()  # Stop execution if the model is missing
+
 
 model = joblib.load("subdirectory/logistic_model.pkl")
 import streamlit as st
