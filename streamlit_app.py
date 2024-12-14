@@ -11,6 +11,39 @@ except FileNotFoundError:
     st.stop()  # Stop execution if the model is missing
 
 model = joblib.load("subdirectory/logistic_model.pkl")
+import streamlit as st
+import joblib
+import numpy as np
+
+# Load the trained model
+try:
+    model = joblib.load("logistic_model.pkl")
+except FileNotFoundError:
+    st.error("Model file not found. Please ensure 'logistic_model.pkl' is in the app directory.")
+    st.stop()  # Stop execution if the model is missing
+
+# Function to display predictions
+def display_prediction_results(model, user_input):
+    prediction = model.predict(user_input)
+    prob = model.predict_proba(user_input)[:, 1]
+    if prediction[0] == 1:
+        st.success(f"This individual is likely a LinkedIn user. Probability: {prob[0]:.2f}")
+    else:
+        st.warning(f"This individual is unlikely to be a LinkedIn user. Probability: {prob[0]:.2f}")
+
+# Example Streamlit app structure
+st.title("LinkedIn User Prediction App")
+income = st.slider("Income (1-9)", 1, 9, step=1)
+education = st.slider("Education Level (1-8)", 1, 8, step=1)
+parent = st.selectbox("Parent", [1, 2], format_func=lambda x: "Yes" if x == 1 else "No")
+marital = st.selectbox("Marital Status", [1, 2, 3, 4, 5, 6], format_func=lambda x: [
+    "Married", "Living with a partner", "Divorced", "Separated", "Widowed", "Never been married"
+][x - 1])
+age = st.number_input("Age (1-97)", min_value=1, max_value=97, step=1)
+
+if st.button("Predict"):
+    user_input = np.array([[income, education, parent, marital, age]])
+    display_prediction_results(model, user_input)
 
 
 # Function to display data definitions
