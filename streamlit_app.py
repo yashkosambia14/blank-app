@@ -7,13 +7,6 @@ import joblib
 
 
 
-# Load the trained model
-try:
-    model = joblib.load("logistic_model.pkl")
-except FileNotFoundError:
-    st.error("Model file not found. Please ensure 'logistic_model.pkl' is in the app directory.")
-    st.stop()  # Stop execution if the model is missing
-
 # Function to display predictions
 def display_prediction_results(model, user_input):
     prediction = model.predict(user_input)
